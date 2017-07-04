@@ -1,26 +1,27 @@
 
  require_relative 'entry'
 
-   class AddressBook
-     attr_reader :entries
+class AddressBook
+  attr_reader :entries
 
-     def initialize
-       #instance variable containing an instance of Array.
-       @entries = [] # Array.new with no arguments
-     end
- end
+  def initialize
+    #instance variable containing an instance of Array.
+    @entries = [] # Array.new with no arguments
+  end
 
-   def add_entry(name, phone_number, email)
+  def add_entry(name, phone_number, email)
 
-     index = 0
-     entries.each do |entry|
+    index = 0
+    #this is an each loop iterating through the array returned by the entries getter.
+    entries.each do |entry|
        #when two strings are being compared, it's alphabetically.
-       if name < entry.name
+      # if is a conditional statement
+      if name < entry.name
          break
-       end
-       index+= 1
-     end
+      end
+      index+= 1
+    end
 
-     entries.insert(index, Entry.new(name, phone_number, email))
-   end
- end
+    entries.insert(index, Entry.new(name, phone_number, email))
+  end
+end
