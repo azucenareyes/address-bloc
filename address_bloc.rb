@@ -1,4 +1,4 @@
-require_relative 'controllers/menu_controllers'
+require_relative 'controllers/menu_controller'
 # menu is a variable that holds an object which is an
 # instance of a class. The class in this case is MenuController
 menu = MenuController.new

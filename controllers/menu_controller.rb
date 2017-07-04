@@ -70,29 +70,30 @@ class MenuController
      system "clear"
      puts "New entry created"
   end
+
   def entry_submenu(entry)
        # #16
-       puts "n - next entry"
-       puts "d - delete entry"
-       puts "e - edit this entry"
-       puts "m - return to main menu"
-       selection = gets.chomp
+    puts "n - next entry"
+    puts "d - delete entry"
+    puts "e - edit this entry"
+    puts "m - return to main menu"
+    selection = gets.chomp
 
-       case selection
+    case selection
+      when "n"
 
-         when "n"
+      when "d"
+      when "e"
 
-         when "d"
-         when "e"
-
-         when "m"
-           system "clear"
-           main_menu
-         else
-           system "clear"
-           puts "#{selection} is not a valid input"
-           entry_submenu(entry)
-       end
+      when "m"
+       system "clear"
+       main_menu
+      else
+        system "clear"
+        puts "#{selection} is not a valid input"
+        entry_submenu(entry)
+    end
+  end
 
   def search_entries
   end
