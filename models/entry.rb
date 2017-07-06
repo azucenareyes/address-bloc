@@ -6,7 +6,7 @@ class Entry
     @email = email
   end
 
-  //Here we are creating the string we want
+  #Here we are creating the string we want
   def to_s
      "Name: #{name}\nPhone Number: #{phone_number}\nEmail: #{email}"
    end
