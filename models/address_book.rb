@@ -1,5 +1,5 @@
 require_relative 'entry'
- require "csv"
+require "csv"
 
 class AddressBook
   attr_reader :entries
@@ -26,10 +26,17 @@ class AddressBook
   end
 
   def import_from_csv(file_name)
+    # We're calling the read method on the File class with an argument.
     csv_text = File.read(file_name)
-    csv = CSV.parse(csv_text, headers: true, skip_blanks: true)
+    # Calling the parse method on the CSV class with  three arguments.
+    # Our first argument is the file's contents, 2nd argument is an option
+    # that tells parse to treat the first line as keys for our rows.
+    #Our third argument tells us to skip blank line if they exist.
+    csv_table = CSV.parse(csv_text, headers: true, skip_blanks: true)
 
-    csv.each do |row|
+
+   #Here we are iterating through the table data and labeling each 
+    csv_table.each do |row|
       row_hash = row.to_hash
       add_entry(row_hash["name"], row_hash["phone_number"], row_hash["email"])
     end
