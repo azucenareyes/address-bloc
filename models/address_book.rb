@@ -2,13 +2,17 @@ require_relative 'entry'
  require "csv"
 
 class AddressBook
+  #when we refer to book in the spec folder it comes here and
+  # depending on the method we attach to it, what it will do.
+  # for book.add_entry it will come here create an instance,
+  # the finaly insert the data in the right place via lexicographic iteration(order)
   attr_reader :entries
 
   def initialize
     #instance variable containing an instance of Array.
     @entries = [] # Array.new with no arguments
   end
-
+# this method takes three arguments,
   def add_entry(name, phone_number, email)
 
     index = 0
@@ -52,6 +56,15 @@ class AddressBook
       end
     end
 
+    return nil
+  end
+
+  def iterative_search(name)
+    entries.each do |entry|
+      if name == entry.name
+        return entry
+      end
+    end
     return nil
   end
 end
