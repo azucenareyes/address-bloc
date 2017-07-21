@@ -1,3 +1,4 @@
+# This class has superclass Object, by default.
 class Entry
   attr_accessor :name, :phone_number, :email
   def initialize(name, phone_number, email)

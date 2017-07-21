@@ -64,7 +64,7 @@ class MenuController
     system "clear"
     puts "End of entries"
   end
-
+# gets is using the STDIN
 # create_entry is a method that asks the user for inputs and adds the entry to the address_book
   def create_entry
     system "clear"
@@ -80,7 +80,10 @@ class MenuController
      puts "New entry created"
   end
 
-# entry_submenu method takes an entry, shows that entry, shows the menu for that entry, takes user input, and does something to that entry based on that input, or returns to another part of the controller (main_menu)
+# entry_submenu method takes an entry, shows that entry, shows the menu for
+# that entry,
+# takes user input, and does something to that entry based on that input, or
+# returns to another part of the controller (main_menu)
   def entry_submenu(entry)
        # #16
     puts entry.to_s
@@ -93,7 +96,10 @@ class MenuController
     case selection
       when "n"
       when "d"
+        delete_entry(entry)
       when "e"
+        edit_entry(entry)
+        entry_submenu(entry)
       when "m"
         system "clear"
         main_menu
@@ -104,9 +110,99 @@ class MenuController
     end
   end
 
-  def search_entries
+  def search_submenu(entry)
+    # #12
+    puts "\nd - delete entry"
+    puts "e - edit this entry"
+    puts "m - return to main menu"
+    # #13
+    selection = gets.chomp
+    # #14
+    case selection
+      when "d"
+        system "clear"
+        delete_entry(entry)
+        main_menu
+      when "e"
+        edit_entry(entry)
+        system "clear"
+        main_menu
+      when "m"
+        system "clear"
+        main_menu
+      else
+        system "clear"
+        puts "#{selection} is not a valid input"
+        puts entry.to_s
+        search_submenu(entry)
+    end
   end
 
-  def read_csv
+  def search_entries
+    # #9
+    print "Search by name: "
+    name = gets.chomp
+    # #10
+    match = address_book.binary_search(name)
+    system "clear"
+    # #11
+    if match
+      puts match.to_s
+      search_submenu(match)
+    else
+      puts "No match found for #{name}"
+    end
   end
+
+# asking for a file name,
+ # checking if that filename does not exist,
+ #if: empty? == true
+ #clear the screen
+ # print: NoCSV file and show main menu method
+# otherwise
+  def read_csv
+    print "Enter CSV file to import: "
+  #store here (file_name) whatever they type in(gets) and ignore the first enter(chomp)
+    file_name = gets.chomp
+
+    if file_name.empty?
+      system "clear"
+      puts "No CSV file read"
+      main_menu
+    end
+
+    begin
+      #store here(entry_count) an instance of a class AddressBook with a called method(.import_from_csv)
+
+      entry_count = address_book.import_from_csv(file_name).count
+      system "clear"
+      puts "#{entry_count} new entries added from #{file_name}"
+    rescue
+      puts "#{file_name} is not a valid CSV file, please enter the name of a valid CSV file"
+      read_csv
+    end
+  end
+
+  def delete_entry(entry)
+    address_book.entries.delete(entry)
+    puts "#{entry.name} has been deleted"
+  end
+
+  def edit_entry(entry)
+    print "Updated name: "
+    new_name = gets.chomp
+    print "Updated phone number: "
+    new_phone_number = gets.chomp
+    print "Updated email: "
+    new_email = gets.chomp
+    entry.name = new_name if ! new_name.empty?
+    entry.phone_number = new_phone_number if ! new_phone_number.empty?
+    entry.email = new_email if ! new_email.empty?
+    system "clear"
+    puts "Updated entry:"
+    # We are not calling the to_s method from Entry class, but
+    # puts calls to_s automatically.
+    puts entry
+  end
+
 end
