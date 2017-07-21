@@ -2,12 +2,16 @@ require_relative 'entry'
 require "csv"
 
 class AddressBook
+  # self.entries or just entries is the method that attr_reader makes for us
+  # that accesses @entries.
   attr_reader :entries
+
 
   def initialize
     #instance variable containing an instance of Array.
     @entries = [] # Array.new with no arguments
   end
+
 
   def add_entry(name, phone_number, email)
 
@@ -24,6 +28,7 @@ class AddressBook
 
     entries.insert(index, Entry.new(name, phone_number, email))
   end
+
 
 # File.read: filename_string -> contents_string
 # CSV.parse: csv_string -> CSV::Table (an array-like thing)
@@ -51,6 +56,7 @@ class AddressBook
     end
   end
 
+
   def binary_search(name)
     lower = 0
     upper = entries.length - 1
@@ -69,5 +75,10 @@ class AddressBook
     end
 
     return nil
+  end
+
+
+  def destroy_entries
+    self.entries.clear
   end
 end

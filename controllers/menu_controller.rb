@@ -20,6 +20,7 @@ class MenuController
     puts "3 - Search for an entry"
     puts "4 - Import entries from a CSV"
     puts "5 - Exit"
+    puts "6 - Destroy All!"
     print "Enter your selection: "
     selection = gets.to_i
     #  Each case statement except 5 really comes with three directions, the first is to clear the screen, which doesn't
@@ -46,10 +47,25 @@ class MenuController
       when 5
         puts "Good-bye!"
         exit(0)
+      when 6
+        system "clear"
+        destroy_entries
+        main_menu
       else
         system "clear"
         puts "Sorry, that is not a valid input"
         main_menu
+    end
+  end
+
+  def destroy_entries
+    print "If you're sure type y: "
+    destroy = gets.chomp
+    if destroy == "y"
+      address_book.destroy_entries
+      puts "All gone!"
+    else
+      puts "Ok, nothing deleted."
     end
   end
 

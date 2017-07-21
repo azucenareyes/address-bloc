@@ -148,4 +148,14 @@ RSpec.describe AddressBook do
       expect(entry).to be_nil
     end
   end
+
+  describe "#destroy_entries" do
+
+    it "clears AddressBook" do
+      book.import_from_csv("entries.csv")
+      book.destroy_entries()
+
+      expect(book.entries.size).to eq 0
+    end
+  end
 end
